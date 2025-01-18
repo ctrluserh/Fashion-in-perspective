@@ -3,10 +3,6 @@ Authors and Contributors: Alan K., Harmanpreet S. and Aayushma S.
 
 Fashion in Perspective aims to give users another perspective on how their clothing is made. It included
 
-## Features of Software.
-The goal of our software is to give users another perspective on their clothing
-*
-
 ## API.
 Cohere API is used to query information from tags and to analyze some data. 
 [Cohere](https://cohere.com/?qgad=721853689392&qgterm=cohere%20api&utm_campaign=gs-{20368816223}-{169344855063}-{721853689392}_fy24&utm_promoter=cohere-brand-exact&utm_source=google&utm_term=cohere%20api&utm_medium=cpc&utm_geo=amer&utm_content=brand&gad_source=1&gclid=Cj0KCQiAv628BhC2ARIsAIJIiK9GYWcmIJvR39Hj_TbW9xe8yDMYwotGk6WIaEnh-CHs08z6egCUDscaAhsaEALw_wcB)
