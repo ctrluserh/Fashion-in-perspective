@@ -25,10 +25,15 @@ export function Story({res}) {
   }
 
   let p1s = "Your clothing article was made in" + res.country
-  let p2s = "These were the working conditions of your workers. It's not always easy to see the people behind the clothes we wear, but they are there. "
-  let p3s = "Your clothing article was made out of " + materials + ". " + water.current + " litres of water was used to create 100 grams of your clothes" 
-  let p4s = "Your workers made an average of" + minWage.current + "CAD an hour. "
-  let p5s = "These were the origins of your clothing article"
+  let p2s = "These were the working conditions of your workers"
+  let p3s = "Materials your clothing article was made out of " + materials + ". " + water.current + " litres of water was used to create 100g of your clothes" 
+  let p4s = "The workers made an average of" + minWage.current + "CAD and hour"
+  let p5s = "This were the origins of your clothing article"
+ const [s1, setP1] = useState(false)
+  const [s2, setP2] = useState(false)
+  const [s3, setP3] = useState(false)
+  const [s4, setP4] = useState(false)
+  const [s5, setP5] = useState(false)
 
   let p1 = "http://localhost:5000/factoryimage/" + "Create a highly detailed, realistic image of the country " + res.country + ". The image should reflect what the country is most famous for, whether it be its natural landscapes, cultural heritage, or economic achievements. Include iconic landmarks, environmental features, or cultural elements that are closely associated with this country.";
   let p2 = "http://localhost:5000/factoryimage2/" + "Create a highly realistic and detailed image of a large-scale factory located in " + res.country + ", producing fast fashion clothes. The factory should feature rows of sewing machines, textile workers, and a variety of clothing materials being processed. It should have a bustling, industrial feel with a focus on the production process of trendy, mass-produced garments.";
@@ -37,7 +42,9 @@ export function Story({res}) {
   let p5 = "http://localhost:5000/factoryimage5/" + "Create a highly realistic and detailed image showcasing the natural sources of plant and animal materials used in fabric production. Based on the following list of fabrics: " + JSON.stringify(res.fabric) + ", depict cotton plants, polyester derived from petroleum, rayon fibers, and silkworms. The scene should emphasize the connection between nature and the textile industry in a vivid, natural setting.";
   
   const speakText = (speech) => {
-    if (speech !== '') {
+    if((speech.split(" ")[0] == "Your" && s1== false) || (speech.split(" ")[0] == "These" && s2== false) || (speech.split(" ")[0] == "Materials" && s3== false) || (speech.split(" ")[0] == "The" && s4== false) || (speech.split(" ")[0] == "This" && s5== false))
+    {
+      if (speech !== '') {
       const utterance = new SpeechSynthesisUtterance(speech); 
       utterance.rate = 1;  
       utterance.pitch = 1; 
@@ -45,7 +52,23 @@ export function Story({res}) {
 
       window.speechSynthesis.speak(utterance);
     }
-  };
+    if (speech.split(" ")[0] == "Your" ) {
+      setP1(true)
+    } else if(speech.split(" ")[0] == "These") {
+      setP2(true)
+
+    } else if(speech.split(" ")[0] == "Materials") {
+      setP3(true)
+
+    } else if(speech.split(" ")[0] == "The") {
+      setP4(true)
+
+    } else if(speech.split(" ")[0] == "This") {
+      setP5(true)
+    }
+      
+    }
+  }
 
 
   useEffect(() => {
@@ -168,10 +191,12 @@ export function PhotoUpload(props) {
             <button 
               type="button" 
               onClick={handleFileChange1} 
+              id="up"
               style={{ padding: "1rem", width: "7rem", borderRadius: "0.5rem", borderStyle: "none", marginTop: "1rem" }}>
               Upload front of tag
             </button>
             <button 
+            id="up"
               type="button" 
               onClick={handleFileChange2} 
               style={{ padding: "1rem", width: "7rem", borderRadius: "0.5rem", borderStyle: "none", marginTop: "1rem" }}>
@@ -200,6 +225,7 @@ export function PhotoUpload(props) {
               type="text" 
               onChange={updateBrand} 
               placeholder="Brand"
+              id="b"
             />
           </div>
 
