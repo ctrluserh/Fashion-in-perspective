@@ -45,12 +45,14 @@ export function PhotoUpload(props) {
   const [cohere, setCohere] = useState("");
   const [uploaded1, setUploaded1] = useState(false)
   const [uploaded2, setUploaded2] = useState(false);
+  const [cohereInfo, setCohereInfo] = useState(null);
   const fileInputRef1 = useRef(null);
   const fileInputRef2 = useRef(null);
 
-  const sendToCohere = () => {
+  const sendToCohere = async () => {
 
-    extractInfo(cohere, props.setRes);  // Assuming you want to send some result here
+    await extractInfo(cohere, props.setRes);  // Assuming you want to send some result here
+    await extarctImages(props.setImage, cohereInfo)
 
   };
 
@@ -170,6 +172,7 @@ export function PhotoUpload(props) {
 
 function App() {
   const [res, setRes] = useState("");  // State to track result
+  const [images, setImages] = useState(null)
 
   const updateRes = (response) => {
     setRes(response)
@@ -178,7 +181,7 @@ function App() {
   return (
     <div>
       {res === "" ? (
-        <PhotoUpload setRes={setRes} /> // Pass the update function to the child
+        <PhotoUpload setRes={setRes} setImages={setImages}/> // Pass the update function to the child
       ) : (
         <Story res={res} />
       )}
