@@ -3,6 +3,7 @@ import Tesseract from "tesseract.js";
 import './App.css';
 import { extractInfo, extractImages } from "./utilities.js";
 import {formattedData} from "./min_wage.js"
+import { getWater } from "./fabric_water.js";
 
 
 export function Story({res}) {
@@ -14,7 +15,9 @@ export function Story({res}) {
   const [images, setImages] = useState([]);
   const [prompt, setPrompt] = useState("")
   const minWage = useRef(formattedData[res.country.toLowerCase()])
-  const water = useRef(0)
+  const water = useRef(getWater(res))
+  // TEMP 
+  useEffect(() => {console.log("water", water)}, [water])
   let materials = ""
 
   for (let key in res.fabric) {
@@ -23,16 +26,16 @@ export function Story({res}) {
 
   let p1s = "Your clothing article was made in" + res.country
   let p2s = "These were the working conditions of your workers. It's not always easy to see the people behind the clothes we wear, but they are there. "
-  let p3s = "Your clothing article was made out of " + materials + ". " + water + " litres of water was used to create 100 grams of your clothes" 
+  let p3s = "Your clothing article was made out of " + materials + ". " + water.current + " litres of water was used to create 100 grams of your clothes" 
   let p4s = "Your workers made an average of" + minWage.current + "CAD an hour. "
   let p5s = "These were the origins of your clothing article"
 
-  let p1 = "http://localhost:5000/factoryimage/" + "Create a realistic image of the following country and what it might be famous for: " + res.country
-  let p2 = "http://localhost:5000/factoryimage2/" + "Create a realistic image of a factory that produces fast fashion clothes in this country: " + res.country
-  let p3 = "http://localhost:5000/factoryimage3/" + "Create a realistic image of the materials that are given in the following list " + JSON.stringify(res.fabric)
-  let p4 = "http://localhost:5000/factoryimage4/" + "Create a realistic image of poor people and children in this country: " + res.country
-  let p5 = "http://localhost:5000/factoryimage5/" + "Create a realistic image of the sources (plant and animal) that are needed in the following list: " + JSON.stringify(res.fabric)
-
+  let p1 = "http://localhost:5000/factoryimage/" + "Create a highly detailed, realistic image of the country " + res.country + ". The image should reflect what the country is most famous for, whether it be its natural landscapes, cultural heritage, or economic achievements. Include iconic landmarks, environmental features, or cultural elements that are closely associated with this country.";
+  let p2 = "http://localhost:5000/factoryimage2/" + "Create a highly realistic and detailed image of a large-scale factory located in " + res.country + ", producing fast fashion clothes. The factory should feature rows of sewing machines, textile workers, and a variety of clothing materials being processed. It should have a bustling, industrial feel with a focus on the production process of trendy, mass-produced garments.";
+  let p3 = "http://localhost:5000/factoryimage3/" + "Create a highly detailed, realistic image of the raw materials used in the production of clothing. These materials are based on the following fabric types: " + JSON.stringify(res.fabric) + ". Include elements such as cotton fields, polyester fibers, rayon textures, and silk threads. The image should showcase the natural or synthetic origins of these fabrics in realistic environments like farms or manufacturing facilities.";
+  let p4 = "http://localhost:5000/factoryimage4/" + "Create a highly realistic, emotional image of the living conditions of impoverished people, including children, in " + res.country + ". The image should show the harsh reality of poverty, with people living in run-down areas, struggling with basic needs. The scene should evoke a sense of urgency and empathy while highlighting the economic disparity in the country.";
+  let p5 = "http://localhost:5000/factoryimage5/" + "Create a highly realistic and detailed image showcasing the natural sources of plant and animal materials used in fabric production. Based on the following list of fabrics: " + JSON.stringify(res.fabric) + ", depict cotton plants, polyester derived from petroleum, rayon fibers, and silkworms. The scene should emphasize the connection between nature and the textile industry in a vivid, natural setting.";
+  
   const speakText = (speech) => {
     if (speech !== '') {
       const utterance = new SpeechSynthesisUtterance(speech); 
