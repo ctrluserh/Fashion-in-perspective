@@ -11,31 +11,45 @@ export function Story({res}) {
   const [slide4, setSlide4] = useState(false)
   const [slide5, setSlide5] = useState(false)
 
- 
+
+
+  const [images, setImages] = useState([]);
+  const [prompt, setPrompt] = useState("")
+
+let p1 = "http://localhost:5000/factoryimage/" + "Create a realistic image of the following country and what it might be famous for: " + res.country
+        let p2 = "http://localhost:5000/factoryimage2/" + "Create a realistic image of a factory that produces fast fashion clothes in this country: " + res.country
+        let p3 = "http://localhost:5000/factoryimage3/" + "Create a realistic image of the materials that are given in the following list " + JSON.stringify(res.fabric)
+        let p4 = "http://localhost:5000/factoryimage4/" + "Create a realistic image of poor people and children in this country: " + res.country
+        let p5 = "http://localhost:5000/factoryimage5/" + "Create a realistic image of the sources (plant and animal) that are needed in the following list: " + JSON.stringify(res.fabric)
+
+
 
   useEffect(() => {
+    setPrompt(p1)
     setTimeout(() => {
       setSlide1(false)
       setSlide2(true)
+      setPrompt(p2)
       setTimeout(() => {
         setSlide2(false)
         setSlide3(true)
+        setPrompt(p3)
         setTimeout(() => {
           setSlide3(false)
           setSlide4(true)
+          setPrompt(p4)
           setTimeout(() => {
             setSlide4(false)
             setSlide5(true)
+            setPrompt(p5)
           }, 10000)
         }, 10000)
       }, 10000)
     }, 10000)
   }, [])
 
-
-
   return (
-    <div>{slide1? <p>one</p> : slide2? <p>two</p> : slide3? <p>three</p> : slide4? <p>four</p> : slide5? <p>five</p> : <p>error</p>}</div>
+    <div><img src={prompt}/></div>
   );
 }
 

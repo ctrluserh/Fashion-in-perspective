@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, send_file
-from api_keys import cohere_api_key, hugface
+from api_keys import cohere_api_key, hugface, api_key2, api_key3, api_key4, api_key5   
 import cohere
 from PIL import Image
 from prompts import EXTRACT
@@ -10,7 +10,7 @@ from huggingface_hub import InferenceClient
 import threading
 
 #client = InferenceClient("stabilityai/stable-diffusion-3.5-large", token=hugface)
-client = InferenceClient("stabilityai/stable-diffusion-xl-base-1.0", token=hugface)
+
 
 app = Flask(__name__)
 CORS(app)
@@ -60,6 +60,7 @@ def extract(prompt):
 
 @app.route('/factoryimage/<prompt>', methods=['GET'])
 def factory_image(prompt):
+    client = InferenceClient("stabilityai/stable-diffusion-xl-base-1.0", token=hugface)
     print(prompt)
     if not prompt:
         return "No prompt"
@@ -67,11 +68,76 @@ def factory_image(prompt):
     
     
     # output is a PIL.Image object
-    image = client.text_to_image("negative effects of fast fashion from perspective of poor factory worker in  " + prompt)
+    image = client.text_to_image( prompt)
     image.save("img.png", "PNG")
 
     # Return the image as part of the response
     return send_file("img.png", mimetype='image/png')
+
+@app.route('/factoryimage2/<prompt>', methods=['GET'])
+def factory_image2(prompt):
+    client = InferenceClient("stabilityai/stable-diffusion-xl-base-1.0", token=api_key2)
+    print(prompt)
+    if not prompt:
+        return "No prompt"
+    
+    
+    
+    # output is a PIL.Image object
+    image = client.text_to_image( prompt)
+    image.save("img2.png", "PNG")
+
+    # Return the image as part of the response
+    return send_file("img2.png", mimetype='image/png')
+
+@app.route('/factoryimage3/<prompt>', methods=['GET'])
+def factory_image3(prompt):
+    client = InferenceClient("stabilityai/stable-diffusion-xl-base-1.0", token=api_key3)
+    print(prompt)
+    if not prompt:
+        return "No prompt"
+    
+    
+    
+    # output is a PIL.Image object
+    image = client.text_to_image( prompt)
+    image.save("img3.png", "PNG")
+
+    # Return the image as part of the response
+    return send_file("img3.png", mimetype='image/png')
+
+@app.route('/factoryimage4/<prompt>', methods=['GET'])
+def factory_image4(prompt):
+    client = InferenceClient("stabilityai/stable-diffusion-xl-base-1.0", token=api_key4)
+    print(prompt)
+    if not prompt:
+        return "No prompt"
+    
+    
+    
+    # output is a PIL.Image object
+    image = client.text_to_image( prompt)
+    image.save("img4.png", "PNG")
+
+    # Return the image as part of the response
+    return send_file("img4.png", mimetype='image/png')
+
+@app.route('/factoryimage5/<prompt>', methods=['GET'])
+def factory_image5(prompt):
+    client = InferenceClient("stabilityai/stable-diffusion-xl-base-1.0", token=api_key5)
+    print(prompt)
+    if not prompt:
+        return "No prompt"
+    
+    
+    
+    # output is a PIL.Image object
+    image = client.text_to_image( prompt)
+    image.save("img5.png", "PNG")
+
+    # Return the image as part of the response
+    return send_file("img5.png", mimetype='image/png')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
