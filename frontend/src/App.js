@@ -19,7 +19,6 @@ export function Story({res}) {
   const speech4 = ""
   const speech5 = "The materials made to use your clothing item was "
 
-<<<<<<< Updated upstream
 
 
   const [images, setImages] = useState([]);
@@ -32,8 +31,6 @@ let p1 = "http://localhost:5000/factoryimage/" + "Create a realistic image of th
         let p5 = "http://localhost:5000/factoryimage5/" + "Create a realistic image of the sources (plant and animal) that are needed in the following list: " + JSON.stringify(res.fabric)
 
 
-=======
->>>>>>> Stashed changes
 
   useEffect(() => {
     setPrompt(p1)
@@ -204,23 +201,6 @@ function App() {
 
   const [images, setImages] = useState([]);
 
-<<<<<<< Updated upstream
-  const [arr, setArr] = useState({
-    "country": "Denmark",
-    "fabric": {
-        "Cotton": 25,
-        "Polyester": 50,
-        "Rayon": 10,
-        "Silk": 25
-    }
-})
-  
-  const updateRes = (response) => {
-    setRes(response)
-  }
-=======
-
->>>>>>> Stashed changes
 
   return (
     <div>
