@@ -4,7 +4,8 @@ import './App.css';
 import { extractInfo } from "./utilities.js";
 
 
-export function Story() {
+export function Story({res}) {
+  useEffect(() => { console.log(res); }, [res]);
   return (
     <div>Here is the story.</div>
   );
@@ -25,11 +26,11 @@ export function PhotoUpload(props) {
 
   const sendToCohere = () => {
 
-    props.setRes("hello")// Assuming you want to send some result here
-
-    extractInfo(cohere, setCohere);  // Assuming you want to send some result here
+    extractInfo(cohere, props.setRes);  // Assuming you want to send some result here
 
   };
+
+  useEffect(() => {sendToCohere()}, [cohere]);
 
   // Handle file input change
   const handleFileChange = (event) => {
@@ -55,13 +56,10 @@ export function PhotoUpload(props) {
     setBrand(event.target.value)
   };
 
-  useEffect(() => { console.log(res); }, [res]);
-
-
+  
   const validateFields = () => {
     if (text !== "" && brand !== "brand" && text2 !=="") {
       setCohere(`Brand: ${brand}, Text: ${text + " " + text2}`);
-      sendToCohere();  // Call function to send data
     } else {
       setError("Fields are not valid.");
     }
@@ -158,7 +156,7 @@ function App() {
       {res === "" ? (
         <PhotoUpload setRes={setRes} /> // Pass the update function to the child
       ) : (
-        <Story />
+        <Story res={res} />
       )}
     </div>
   );
