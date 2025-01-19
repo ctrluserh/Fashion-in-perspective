@@ -199,3 +199,7 @@ export const d = {
     "Zambia": 0.89,
     "Zimbabwe": 0.58
 }
+
+export const formattedData = Object.fromEntries(
+    Object.entries(d).map(([key, value]) => [key.toLowerCase().replace(/\s+/g, ''), value])
+);

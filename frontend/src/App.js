@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, use } from "react";
 import Tesseract from "tesseract.js";
 import './App.css';
 import { extractInfo, extractImages } from "./utilities.js";
-import {d} from "./min_wage.js"
+import {formattedData} from "./min_wage.js"
 
 
 export function Story({res}) {
@@ -13,7 +13,7 @@ export function Story({res}) {
   const [slide5, setSlide5] = useState(false)
   const [images, setImages] = useState([]);
   const [prompt, setPrompt] = useState("")
-  const minWage = useRef(d[res.country])
+  const minWage = useRef(formattedData[res.country.toLowerCase().replace(/\s+/g, '')])
   const water = useRef(0)
   let materials = ""
 
