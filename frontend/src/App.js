@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, use } from "react";
 import Tesseract from "tesseract.js";
 import './App.css';
 import { extractInfo, extractImages } from "./utilities.js";
+import {d} from "./min_wage.js"
 
 
 export function Story({res}) {
@@ -13,16 +14,16 @@ export function Story({res}) {
   const [images, setImages] = useState([]);
   const [prompt, setPrompt] = useState("")
   const minWage = useRef(d[res.country])
-  const water = useRef(null)
-  const materials = ""
+  const water = useRef(0)
+  let materials = ""
 
   for (let key in res.fabric) {
-    materials += " key "
+    materials +=  key + " "
   }
 
   let p1s = "Your clothing article was made in" + res.country
   let p2s = "These were the working conditions of your workers"
-  let p3s = "Your clothing article was made out of " + materials ". " + water + " litres of water was used to create 100g of your clothes" 
+  let p3s = "Your clothing article was made out of " + materials + ". " + water + " litres of water was used to create 100g of your clothes" 
   let p4s = "Your workers made an average of" + minWage + "CAD and hour"
   let p5s = "These were the origins of your clothing article"
 

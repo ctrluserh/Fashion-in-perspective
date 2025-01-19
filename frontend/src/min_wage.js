@@ -1,5 +1,5 @@
 // Minimum hourly wages in CAD. 
-d = {
+export const d = {
     "Afghanistan": 0.41,
     "Albania": 2.23,
     "Algeria": 0.85,
