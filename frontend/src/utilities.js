@@ -16,7 +16,3 @@ export async function extractInfo(cohere, setData, setCohereInfo) {
         console.error('There was a problem with the fetch operation:', error);
     }
 }
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
