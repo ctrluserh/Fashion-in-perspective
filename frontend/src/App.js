@@ -1,37 +1,81 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import Tesseract from "tesseract.js";
 import './App.css';
-import { extractInfo } from "./utilities.js";
+import { extractInfo, extractImages } from "./utilities.js";
+import {formattedData} from "./min_wage.js"
 
-export function Story() {
+
+export function Story({res}) {
   const [slide1, setSlide1] = useState(true)
   const [slide2, setSlide2] = useState(false)
   const [slide3, setSlide3] = useState(false)
   const [slide4, setSlide4] = useState(false)
   const [slide5, setSlide5] = useState(false)
+  const [images, setImages] = useState([]);
+  const [prompt, setPrompt] = useState("")
+  const minWage = useRef(formattedData[res.country.toLowerCase().replace(/\s+/g, '')])
+  const water = useRef(0)
+  let materials = ""
+
+  for (let key in res.fabric) {
+    materials +=  key + " "
+  }
+
+  let p1s = "Your clothing article was made in" + res.country
+  let p2s = "These were the working conditions of your workers"
+  let p3s = "Your clothing article was made out of " + materials + ". " + water + " litres of water was used to create 100g of your clothes" 
+  let p4s = "Your workers made an average of" + minWage + "CAD and hour"
+  let p5s = "These were the origins of your clothing article"
+
+  let p1 = "http://localhost:5000/factoryimage/" + "Create a realistic image of the following country and what it might be famous for: " + res.country
+  let p2 = "http://localhost:5000/factoryimage2/" + "Create a realistic image of a factory that produces fast fashion clothes in this country: " + res.country
+  let p3 = "http://localhost:5000/factoryimage3/" + "Create a realistic image of the materials that are given in the following list " + JSON.stringify(res.fabric)
+  let p4 = "http://localhost:5000/factoryimage4/" + "Create a realistic image of poor people and children in this country: " + res.country
+  let p5 = "http://localhost:5000/factoryimage5/" + "Create a realistic image of the sources (plant and animal) that are needed in the following list: " + JSON.stringify(res.fabric)
+
+  const speakText = (speech) => {
+    if (speech !== '') {
+      const utterance = new SpeechSynthesisUtterance(speech); 
+      utterance.rate = 1;  
+      utterance.pitch = 1; 
+      utterance.volume = 1; 
+
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
 
   useEffect(() => {
+    setPrompt(p1)
+    speakText(p1s)
     setTimeout(() => {
       setSlide1(false)
       setSlide2(true)
+      setPrompt(p2)
+      speakText(p2s)
       setTimeout(() => {
         setSlide2(false)
         setSlide3(true)
+        setPrompt(p3)
+        speakText(p3s)
         setTimeout(() => {
           setSlide3(false)
           setSlide4(true)
+          setPrompt(p4)
+          speakText(p4s)
           setTimeout(() => {
             setSlide4(false)
             setSlide5(true)
+            setPrompt(p5)
+            speakText(p5s)
           }, 10000)
         }, 10000)
       }, 10000)
     }, 10000)
   }, [])
 
-
   return (
-    <div>{slide1? <p>one</p> : slide2? <p>two</p> : slide3? <p>three</p> : slide4? <p>four</p> : slide5? <p>five</p> : <p>error</p>}</div>
+    <div className="Images"><img src={prompt}/></div>
   );
 }
 
@@ -45,12 +89,13 @@ export function PhotoUpload(props) {
   const [cohere, setCohere] = useState("");
   const [uploaded1, setUploaded1] = useState(false)
   const [uploaded2, setUploaded2] = useState(false);
+  const [cohereInfo, setCohereInfo] = useState(null);
   const fileInputRef1 = useRef(null);
   const fileInputRef2 = useRef(null);
 
-  const sendToCohere = () => {
+  const sendToCohere = async () => {
 
-    extractInfo(cohere, props.setRes);  // Assuming you want to send some result here
+    await extractInfo(cohere, props.setRes);  // Assuming you want to send some result here
 
   };
 
@@ -115,6 +160,7 @@ export function PhotoUpload(props) {
     <div className="Page">
       <div className="InputBox">
         <div className="Buttons">
+          
           <div className="Uploads">
             <button 
               type="button" 
@@ -171,14 +217,13 @@ export function PhotoUpload(props) {
 function App() {
   const [res, setRes] = useState("");  // State to track result
 
-  const updateRes = (response) => {
-    setRes(response)
-  }
+  const [images, setImages] = useState([]);
+
 
   return (
     <div>
       {res === "" ? (
-        <PhotoUpload setRes={setRes} /> // Pass the update function to the child
+        <PhotoUpload setRes={setRes} setImages={setImages}/> // Pass the update function to the child
       ) : (
         <Story res={res} />
       )}
