@@ -24,7 +24,7 @@ export function Story({res}) {
     materials +=  key + " "
   }
 
-  let p1s = "Your clothing article was made in" + res.country
+  let p1s = "Your clothing article was made in" + res.country + "................................................................................................................................................................................................................................................................................................."
   let p2s = "These were the working conditions of your workers"
   let p3s = "Materials your clothing article was made out of " + materials + ". " + water.current + " litres of water was used to create 100g of your clothes" 
   let p4s = "The workers made an average of" + minWage.current + "CAD and hour"
@@ -42,7 +42,7 @@ export function Story({res}) {
   let p5 = "http://localhost:5000/factoryimage5/" + "Create a highly realistic and detailed image showcasing the natural sources of plant and animal materials used in fabric production. Based on the following list of fabrics: " + JSON.stringify(res.fabric) + ", depict cotton plants, polyester derived from petroleum, rayon fibers, and silkworms. The scene should emphasize the connection between nature and the textile industry in a vivid, natural setting.";
   
   const speakText = (speech) => {
-    if((speech.split(" ")[0] == "Your" && s1== false) || (speech.split(" ")[0] == "These" && s2== false) || (speech.split(" ")[0] == "Materials" && s3== false) || (speech.split(" ")[0] == "The" && s4== false) || (speech.split(" ")[0] == "This" && s5== false))
+    if((speech.split(" ")[0] == "Your" && s1=== false) || (speech.split(" ")[0] == "These" && s2=== false) || (speech.split(" ")[0] == "Materials" && s3=== false) || (speech.split(" ")[0] == "The" && s4=== false) || (speech.split(" ")[0] == "This" && s5=== false))
     {
       if (speech !== '') {
       const utterance = new SpeechSynthesisUtterance(speech); 
@@ -185,6 +185,7 @@ export function PhotoUpload(props) {
   return (
     <div className="Page">
       <div className="InputBox">
+      <h2 className="title">Thread Forward</h2>
         <div className="Buttons">
           
           <div className="Uploads">
