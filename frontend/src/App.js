@@ -10,46 +10,63 @@ export function Story({res}) {
   const [slide3, setSlide3] = useState(false)
   const [slide4, setSlide4] = useState(false)
   const [slide5, setSlide5] = useState(false)
-  const wage = useRef(null)
-  const water = useRef(null)
-
-  const speech1 = "Your article of clothing was made it " + res.country
-  const speech2 = "These are the working conditions which your clothes was made under"
-  const speech3 = "Your workers made" + wage + "USD and hour"
-  const speech4 = ""
-  const speech5 = "The materials made to use your clothing item was "
-
-
-
   const [images, setImages] = useState([]);
   const [prompt, setPrompt] = useState("")
+  const minWage = useRef(d[res.country])
+  const water = useRef(null)
+  const materials = ""
 
-let p1 = "http://localhost:5000/factoryimage/" + "Create a realistic image of the following country and what it might be famous for: " + res.country
-        let p2 = "http://localhost:5000/factoryimage2/" + "Create a realistic image of a factory that produces fast fashion clothes in this country: " + res.country
-        let p3 = "http://localhost:5000/factoryimage3/" + "Create a realistic image of the materials that are given in the following list " + JSON.stringify(res.fabric)
-        let p4 = "http://localhost:5000/factoryimage4/" + "Create a realistic image of poor people and children in this country: " + res.country
-        let p5 = "http://localhost:5000/factoryimage5/" + "Create a realistic image of the sources (plant and animal) that are needed in the following list: " + JSON.stringify(res.fabric)
+  for (let key in res.fabric) {
+    materials += " key "
+  }
 
+  let p1s = "Your clothing article was made in" + res.country
+  let p2s = "These were the working conditions of your workers"
+  let p3s = "Your clothing article was made out of " + materials ". " + water + " litres of water was used to create 100g of your clothes" 
+  let p4s = "Your workers made an average of" + minWage + "CAD and hour"
+  let p5s = "These were the origins of your clothing article"
+
+  let p1 = "http://localhost:5000/factoryimage/" + "Create a realistic image of the following country and what it might be famous for: " + res.country
+  let p2 = "http://localhost:5000/factoryimage2/" + "Create a realistic image of a factory that produces fast fashion clothes in this country: " + res.country
+  let p3 = "http://localhost:5000/factoryimage3/" + "Create a realistic image of the materials that are given in the following list " + JSON.stringify(res.fabric)
+  let p4 = "http://localhost:5000/factoryimage4/" + "Create a realistic image of poor people and children in this country: " + res.country
+  let p5 = "http://localhost:5000/factoryimage5/" + "Create a realistic image of the sources (plant and animal) that are needed in the following list: " + JSON.stringify(res.fabric)
+
+  const speakText = (speech) => {
+    if (speech !== '') {
+      const utterance = new SpeechSynthesisUtterance(speech); 
+      utterance.rate = 1;  
+      utterance.pitch = 1; 
+      utterance.volume = 1; 
+
+      window.speechSynthesis.speak(utterance);
+    }
+  };
 
 
   useEffect(() => {
     setPrompt(p1)
+    speakText(p1s)
     setTimeout(() => {
       setSlide1(false)
       setSlide2(true)
       setPrompt(p2)
+      speakText(p2s)
       setTimeout(() => {
         setSlide2(false)
         setSlide3(true)
         setPrompt(p3)
+        speakText(p3s)
         setTimeout(() => {
           setSlide3(false)
           setSlide4(true)
           setPrompt(p4)
+          speakText(p4s)
           setTimeout(() => {
             setSlide4(false)
             setSlide5(true)
             setPrompt(p5)
+            speakText(p5s)
           }, 10000)
         }, 10000)
       }, 10000)
@@ -57,7 +74,7 @@ let p1 = "http://localhost:5000/factoryimage/" + "Create a realistic image of th
   }, [])
 
   return (
-    <div><img src={prompt}/></div>
+    <div className="Images"><img src={prompt}/></div>
   );
 }
 
