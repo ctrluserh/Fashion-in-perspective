@@ -189,7 +189,7 @@ export const d = {
     "Ukraine": 3.62,
     "United Arab Emirates": 4.57,
     "United Kingdom": 12.85,
-    "United States": 20.51,
+    "United States of America": 20.51,
     "Uruguay": 1.78,
     "Uzbekistan": 0.68,
     "Vanuatu": 0.19,
@@ -201,5 +201,7 @@ export const d = {
 }
 
 export const formattedData = Object.fromEntries(
-    Object.entries(d).map(([key, value]) => [key.toLowerCase().replace(/\s+/g, ''), value])
+    Object.entries(d).map(([key, value]) => [key.toLowerCase(), value])
 );
+
+console.log("formatted", formattedData)

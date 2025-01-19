@@ -28,7 +28,10 @@ export function getWater(fabrics) {
       // Check 
       if (waterRates[normalizedFabricName]) {
         // Multiply with water rate
-        water += waterRates[normalizedFabricName] * quantity;
+        water += waterRates[normalizedFabricName] * quantity/100;
+      }
+      else{
+        water += 10 * quantity;
       }
     }
   

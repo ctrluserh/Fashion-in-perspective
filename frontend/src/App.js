@@ -13,7 +13,7 @@ export function Story({res}) {
   const [slide5, setSlide5] = useState(false)
   const [images, setImages] = useState([]);
   const [prompt, setPrompt] = useState("")
-  const minWage = useRef(formattedData[res.country.toLowerCase().replace(/\s+/g, '')])
+  const minWage = useRef(formattedData[res.country.toLowerCase()])
   const water = useRef(0)
   let materials = ""
 
@@ -22,9 +22,9 @@ export function Story({res}) {
   }
 
   let p1s = "Your clothing article was made in" + res.country
-  let p2s = "These were the working conditions of your workers"
-  let p3s = "Your clothing article was made out of " + materials + ". " + water + " litres of water was used to create 100g of your clothes" 
-  let p4s = "Your workers made an average of" + minWage + "CAD and hour"
+  let p2s = "These were the working conditions of your workers. It's not always easy to see the people behind the clothes we wear, but they are there. "
+  let p3s = "Your clothing article was made out of " + materials + ". " + water + " litres of water was used to create 100 grams of your clothes" 
+  let p4s = "Your workers made an average of" + minWage.current + "CAD an hour. "
   let p5s = "These were the origins of your clothing article"
 
   let p1 = "http://localhost:5000/factoryimage/" + "Create a realistic image of the following country and what it might be famous for: " + res.country
