@@ -3,12 +3,14 @@ from api_keys import cohere_api_key, hugface
 import cohere
 from PIL import Image
 from prompts import EXTRACT
+from flask_cors import CORS
 
 from huggingface_hub import InferenceClient
 #client = InferenceClient("stabilityai/stable-diffusion-3.5-large", token=hugface)
 client = InferenceClient("stabilityai/stable-diffusion-xl-base-1.0", token=hugface)
 
 app = Flask(__name__)
+CORS(app)
 
 # Initialize Cohere client
 cohere_client = cohere.ClientV2(cohere_api_key)

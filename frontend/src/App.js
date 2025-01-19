@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import Tesseract from "tesseract.js";
 import './App.css';
+import { extractInfo } from "./utilities.js";
+
 
 export function Story() {
   return (
@@ -22,7 +24,11 @@ export function PhotoUpload(props) {
   const fileInputRef2 = useRef(null);
 
   const sendToCohere = () => {
+
     props.setRes("hello")// Assuming you want to send some result here
+
+    extractInfo(cohere, setCohere);  // Assuming you want to send some result here
+
   };
 
   // Handle file input change
@@ -45,8 +51,12 @@ export function PhotoUpload(props) {
   };
 
   const updateBrand = (event) => {
-    setBrand(event.target.value);
+
+    setBrand(event.target.value)
   };
+
+  useEffect(() => { console.log(res); }, [res]);
+
 
   const validateFields = () => {
     if (text !== "" && brand !== "brand" && text2 !=="") {
