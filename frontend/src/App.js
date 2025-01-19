@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import Tesseract from "tesseract.js";
 import './App.css';
-import { extractInfo } from "./utilities.js";
+import { extractInfo, extractImages } from "./utilities.js";
 
-export function Story() {
+
+export function Story({res}) {
   const [slide1, setSlide1] = useState(true)
   const [slide2, setSlide2] = useState(false)
   const [slide3, setSlide3] = useState(false)
   const [slide4, setSlide4] = useState(false)
   const [slide5, setSlide5] = useState(false)
+
+ 
 
   useEffect(() => {
     setTimeout(() => {
@@ -28,6 +31,7 @@ export function Story() {
       }, 10000)
     }, 10000)
   }, [])
+
 
 
   return (
@@ -52,7 +56,6 @@ export function PhotoUpload(props) {
   const sendToCohere = async () => {
 
     await extractInfo(cohere, props.setRes);  // Assuming you want to send some result here
-    await extarctImages(props.setImage, cohereInfo)
 
   };
 
@@ -172,8 +175,26 @@ export function PhotoUpload(props) {
 
 function App() {
   const [res, setRes] = useState("");  // State to track result
-  const [images, setImages] = useState(null)
 
+  const [images, setImages] = useState([]);
+
+  const [arr, setArr] = useState({
+    "country": "Denmark",
+    "fabric": {
+        "Cotton": 25,
+        "Polyester": 50,
+        "Rayon": 10,
+        "Silk": 25
+    }
+})
+ useEffect(() => {console.log("arr",arr); 
+    extractImages(setImages, arr).then((response) => {
+      console.log(response)
+    })
+  }, [arr])
+  // useEffect(() => console.log(arr), arr)
+  // useEffect(() => console.log(images), [images])
+  
   const updateRes = (response) => {
     setRes(response)
   }
