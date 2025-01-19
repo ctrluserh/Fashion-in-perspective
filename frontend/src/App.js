@@ -3,11 +3,35 @@ import Tesseract from "tesseract.js";
 import './App.css';
 import { extractInfo } from "./utilities.js";
 
+export function Story() {
+  const [slide1, setSlide1] = useState(true)
+  const [slide2, setSlide2] = useState(false)
+  const [slide3, setSlide3] = useState(false)
+  const [slide4, setSlide4] = useState(false)
+  const [slide5, setSlide5] = useState(false)
 
-export function Story({res}) {
-  useEffect(() => { console.log(res); }, [res]);
+  useEffect(() => {
+    setTimeout(() => {
+      setSlide1(false)
+      setSlide2(true)
+      setTimeout(() => {
+        setSlide2(false)
+        setSlide3(true)
+        setTimeout(() => {
+          setSlide3(false)
+          setSlide4(true)
+          setTimeout(() => {
+            setSlide4(false)
+            setSlide5(true)
+          }, 10000)
+        }, 10000)
+      }, 10000)
+    }, 10000)
+  }, [])
+
+
   return (
-    <div>Here is the story.</div>
+    <div>{slide1? <p>one</p> : slide2? <p>two</p> : slide3? <p>three</p> : slide4? <p>four</p> : slide5? <p>five</p> : <p>error</p>}</div>
   );
 }
 
