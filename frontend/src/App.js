@@ -10,7 +10,16 @@ export function Story({res}) {
   const [slide3, setSlide3] = useState(false)
   const [slide4, setSlide4] = useState(false)
   const [slide5, setSlide5] = useState(false)
+  const wage = useRef(null)
+  const water = useRef(null)
 
+  const speech1 = "Your article of clothing was made it " + res.country
+  const speech2 = "These are the working conditions which your clothes was made under"
+  const speech3 = "Your workers made" + wage + "USD and hour"
+  const speech4 = ""
+  const speech5 = "The materials made to use your clothing item was "
+
+<<<<<<< Updated upstream
 
 
   const [images, setImages] = useState([]);
@@ -23,6 +32,8 @@ let p1 = "http://localhost:5000/factoryimage/" + "Create a realistic image of th
         let p5 = "http://localhost:5000/factoryimage5/" + "Create a realistic image of the sources (plant and animal) that are needed in the following list: " + JSON.stringify(res.fabric)
 
 
+=======
+>>>>>>> Stashed changes
 
   useEffect(() => {
     setPrompt(p1)
@@ -193,6 +204,7 @@ function App() {
 
   const [images, setImages] = useState([]);
 
+<<<<<<< Updated upstream
   const [arr, setArr] = useState({
     "country": "Denmark",
     "fabric": {
@@ -206,6 +218,9 @@ function App() {
   const updateRes = (response) => {
     setRes(response)
   }
+=======
+
+>>>>>>> Stashed changes
 
   return (
     <div>
