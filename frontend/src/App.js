@@ -8,7 +8,7 @@ export function Story() {
   );
 }
 
-function PhotoUpload({ setRes }) {
+export function PhotoUpload(props) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState("");
@@ -22,7 +22,7 @@ function PhotoUpload({ setRes }) {
   const fileInputRef2 = useRef(null);
 
   const sendToCohere = () => {
-    setRes("hello");  // Assuming you want to send some result here
+    props.setRes("hello")// Assuming you want to send some result here
   };
 
   // Handle file input change
@@ -132,19 +132,26 @@ function PhotoUpload({ setRes }) {
           </div>
         </div>
       </div>
-      {cohere}
     </div>
   );
 }
 
-export function App() {
+function App() {
   const [res, setRes] = useState("");  // State to track result
+
+  const updateRes = (response) => {
+    setRes(response)
+  }
 
   return (
     <div>
-      {res === "" ? <PhotoUpload setRes={setRes} /> : <Story />}
+      {res === "" ? (
+        <PhotoUpload setRes={setRes} /> // Pass the update function to the child
+      ) : (
+        <Story />
+      )}
     </div>
   );
 }
 
-export default PhotoUpload;
+export default App
