@@ -120,6 +120,7 @@ export function PhotoUpload(props) {
     <div className="Page">
       <div className="InputBox">
         <div className="Buttons">
+          
           <div className="Uploads">
             <button 
               type="button" 
@@ -187,13 +188,6 @@ function App() {
         "Silk": 25
     }
 })
- useEffect(() => {console.log("arr",arr); 
-    extractImages(setImages, arr).then((response) => {
-      console.log(response)
-    })
-  }, [arr])
-  // useEffect(() => console.log(arr), arr)
-  // useEffect(() => console.log(images), [images])
   
   const updateRes = (response) => {
     setRes(response)

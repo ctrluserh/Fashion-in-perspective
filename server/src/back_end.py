@@ -68,7 +68,7 @@ def factory_image(prompt):
     
     # output is a PIL.Image object
     image = client.text_to_image("negative effects of fast fashion from perspective of poor factory worker in  " + prompt)
-    image.save("src/img.png", "PNG")
+    image.save("img.png", "PNG")
 
     # Return the image as part of the response
     return send_file("img.png", mimetype='image/png')
